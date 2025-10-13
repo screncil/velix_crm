@@ -1,22 +1,31 @@
-# Backend Dockerfile (Django)
+# 1. Базовый образ Python
 FROM python:3.12-slim
 
-# Настройки окружения
+# 2. Устанавливаем переменные окружения
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# Устанавливаем зависимости системы
-RUN apt-get update && apt-get install -y libpq-dev gcc
-
-# Рабочая директория
+# 3. Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-# Устанавливаем зависимости
-COPY requirements.txt .
-RUN pip install --upgrade pip && pip install -r requirements.txt
+# 4. Устанавливаем зависимости системы (для psycopg2, Pillow и т.д.)
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    gettext \
+    && rm -rf /var/lib/apt/lists/*
 
-# Копируем код
+# 5. Копируем зависимости проекта
+COPY requirements.txt .
+
+# 6. Устанавливаем зависимости Python
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 7. Копируем весь код Django внутрь контейнера
 COPY . .
 
-# Команда запуска (для dev)
+# 8. Открываем порт
+EXPOSE 8000
+
+# 9. Команда по умолчанию — запуск сервера разработки
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
