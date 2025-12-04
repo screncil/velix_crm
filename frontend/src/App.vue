@@ -1,7 +1,9 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
-  <p>Hello World</p>
+  <Provider>
+    <RouterView />
+  </Provider>
 </template>
+
+<script setup lang="ts">
+import Provider from './views/Provider.vue';
+</script>
