@@ -33,7 +33,7 @@
             >
               <li
                 :class="[
-                  active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
+                  active ? 'bg-orange-500/40 text-orange-500' : 'text-gray-900',
                   'relative cursor-default select-none py-2 pl-10 pr-4',
                 ]"
               >
@@ -46,7 +46,7 @@
                 >
                 <span
                   v-if="selected"
-                  class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
+                  class="absolute inset-y-0 left-0 flex items-center pl-3 text-orange-500"
                 >
                   <CheckIcon class="h-5 w-5" aria-hidden="true" />
                 </span>
@@ -75,19 +75,7 @@ const people = [
   { name: 'Arlene Mccoy' },
   { name: 'Devon Webb' },
   { name: 'Tom Cook' },
-  { name: 'Tanya Fox' },
-  { name: 'Hellen Schmidt' },
-  { name: 'Hellen Schmidt' },
-  { name: 'Hellen Schmidt' },
-  { name: 'Hellen Schmidt' },
-  { name: 'Hellen Schmidt' },
-  { name: 'Hellen Schmidt' },
-  { name: 'Hellen Schmidt' },
-  { name: 'Hellen Schmidt' },
-  { name: 'Hellen Schmidt' },
-  { name: 'Hellen Schmidt' },
-  { name: 'Hellen Schmidt' },
-  { name: 'Hellen Schmidt' }
+  { name: 'Tanya Fox' }
 ]
 const selectedPerson = ref(people[0])
 </script>

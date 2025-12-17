@@ -40,32 +40,32 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="vehicle in vehicles" class="bg-neutral-primary border-b border-gray-400 hover:bg-gray-500/10 hover:cursor-pointer">
-                        <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
-                            {{ vehicle.name }}
-                        </th>
-                        <td class="px-6 py-4">
-                            {{ vehicle.model }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ vehicle.serial_number }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ vehicle.diameter }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ vehicle.comment }}
-                        </td>
-                        <td v-if="!vehicle.in_rent" class="px-6 py-4">
-                            <XMarkIcon class="text-red-500 w-5 h-5"/>
-                        </td>
-                        <td v-else class="px-6 py-4">
-                            <CheckIcon class="text-green-500 w-5 h-5"/>
-                        </td>
-                        <td class="px-6 py-4 border-0">
-                            <a class="text-blue-700 hover:text-blue-800 hover:underline" :href="`/sinotrack/${vehicle.sinotrack.id}`">{{ vehicle.sinotrack.serial_number }}</a>
-                        </td>
-                    </tr>
+                        <tr v-for="vehicle in vehicles" class="bg-neutral-primary border-b border-gray-400 hover:bg-gray-500/10 hover:cursor-pointer">
+                                <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+                                    {{ vehicle.name }}
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{ vehicle.model }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ vehicle.serial_number }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ vehicle.diameter }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ vehicle.comment }}
+                                </td>
+                                <td v-if="!vehicle.in_rent" class="px-6 py-4">
+                                    <XMarkIcon class="text-red-500 w-5 h-5"/>
+                                </td>
+                                <td v-else class="px-6 py-4">
+                                    <CheckIcon class="text-green-500 w-5 h-5"/>
+                                </td>
+                                <td class="px-6 py-4 border-0">
+                                    <span>{{ vehicle.sinotrack.serial_number }}</span>
+                                </td>
+                        </tr>
                 </tbody>
             </table>
         </div>
@@ -75,9 +75,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import AddVehicle from '../components/modals/AddVehicleModal.vue';
+import VehicleViewModal from '../components/modals/VehicleViewModal.vue';
 import { PlusIcon, FunnelIcon, XMarkIcon,CheckIcon } from '@heroicons/vue/24/outline';
 
 const showModal = ref(true);
+
 
 function addVehicleOpenModel() {
     showModal.value = true
@@ -85,202 +87,14 @@ function addVehicleOpenModel() {
 
 function addVehicleCloseModel() {
     showModal.value = false
+
 }
 
+
 const vehicles = [
+
     {
-        name: "Trinx",
-        model: "MF201",
-        serial_number: "LGVDKSHPODHFG",
-        diameter: "27.5",
-        comment: "-",
-        in_rent: true,
-        sinotrack: {
-            id: 1,
-            serial_number: "LGVDKSHPODHFG"
-        }
-    },
-    {
-        name: "Trinx",
-        model: "MF900",
-        serial_number: "FX1UIJGDHS",
-        diameter: "29",
-        comment: "-",
-        in_rent: false,
-        sinotrack: {
-            id: 1,
-            serial_number: "LGVDKSHPODHFG"
-        }
-    },
-    {
-        name: "Trinx",
-        model: "MF900",
-        serial_number: "FX1UIJGDHS",
-        diameter: "29",
-        comment: "-",
-        in_rent: false,
-        sinotrack: {
-            id: 1,
-            serial_number: "LGVDKSHPODHFG"
-        }
-    },
-    {
-        name: "Trinx",
-        model: "MF900",
-        serial_number: "FX1UIJGDHS",
-        diameter: "29",
-        comment: "-",
-        in_rent: false,
-        sinotrack: {
-            id: 1,
-            serial_number: "LGVDKSHPODHFG"
-        }
-    },
-    {
-        name: "Trinx",
-        model: "MF900",
-        serial_number: "FX1UIJGDHS",
-        diameter: "29",
-        comment: "-",
-        in_rent: false,
-        sinotrack: {
-            id: 1,
-            serial_number: "LGVDKSHPODHFG"
-        }
-    },
-    {
-        name: "Trinx",
-        model: "MF900",
-        serial_number: "FX1UIJGDHS",
-        diameter: "29",
-        comment: "-",
-        in_rent: false,
-        sinotrack: {
-            id: 1,
-            serial_number: "LGVDKSHPODHFG"
-        }
-    },
-    {
-        name: "Trinx",
-        model: "MF900",
-        serial_number: "FX1UIJGDHS",
-        diameter: "29",
-        comment: "-",
-        in_rent: false,
-        sinotrack: {
-            id: 1,
-            serial_number: "LGVDKSHPODHFG"
-        }
-    },
-    {
-        name: "Trinx",
-        model: "MF900",
-        serial_number: "FX1UIJGDHS",
-        diameter: "29",
-        comment: "-",
-        in_rent: false,
-        sinotrack: {
-            id: 1,
-            serial_number: "LGVDKSHPODHFG"
-        }
-    },
-    {
-        name: "Trinx",
-        model: "MF900",
-        serial_number: "FX1UIJGDHS",
-        diameter: "29",
-        comment: "-",
-        in_rent: false,
-        sinotrack: {
-            id: 1,
-            serial_number: "LGVDKSHPODHFG"
-        }
-    },
-    {
-        name: "Trinx",
-        model: "MF900",
-        serial_number: "FX1UIJGDHS",
-        diameter: "29",
-        comment: "-",
-        in_rent: false,
-        sinotrack: {
-            id: 1,
-            serial_number: "LGVDKSHPODHFG"
-        }
-    },
-    {
-        name: "Trinx",
-        model: "MF900",
-        serial_number: "FX1UIJGDHS",
-        diameter: "29",
-        comment: "-",
-        in_rent: false,
-        sinotrack: {
-            id: 1,
-            serial_number: "LGVDKSHPODHFG"
-        }
-    },
-    {
-        name: "Trinx",
-        model: "MF900",
-        serial_number: "FX1UIJGDHS",
-        diameter: "29",
-        comment: "-",
-        in_rent: false,
-        sinotrack: {
-            id: 1,
-            serial_number: "LGVDKSHPODHFG"
-        }
-    },
-    {
-        name: "Trinx",
-        model: "MF900",
-        serial_number: "FX1UIJGDHS",
-        diameter: "29",
-        comment: "-",
-        in_rent: false,
-        sinotrack: {
-            id: 1,
-            serial_number: "LGVDKSHPODHFG"
-        }
-    },
-    {
-        name: "Trinx",
-        model: "MF900",
-        serial_number: "FX1UIJGDHS",
-        diameter: "29",
-        comment: "-",
-        in_rent: false,
-        sinotrack: {
-            id: 1,
-            serial_number: "LGVDKSHPODHFG"
-        }
-    },
-    {
-        name: "Trinx",
-        model: "MF900",
-        serial_number: "FX1UIJGDHS",
-        diameter: "29",
-        comment: "-",
-        in_rent: false,
-        sinotrack: {
-            id: 1,
-            serial_number: "LGVDKSHPODHFG"
-        }
-    },
-    {
-        name: "Trinx",
-        model: "MF900",
-        serial_number: "FX1UIJGDHS",
-        diameter: "29",
-        comment: "-",
-        in_rent: false,
-        sinotrack: {
-            id: 1,
-            serial_number: "LGVDKSHPODHFG"
-        }
-    },
-    {
+        id: 1,
         name: "Trinx",
         model: "MF900",
         serial_number: "FX1UIJGDHS",

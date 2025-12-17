@@ -45,7 +45,8 @@ import {
     UserGroupIcon,
     TruckIcon,
     FolderIcon,
-    ChartBarIcon
+    ChartBarIcon,
+    WrenchIcon
 } from '@heroicons/vue/24/outline';
  
 const menuGroup = [
@@ -66,6 +67,12 @@ const menuGroup = [
         title: "Парк",
         path: "/vehicles",
         icon: TruckIcon
+    },
+    {
+        name: "repairs",
+        title: "Ремонти",
+        path: "/repairs",
+        icon: WrenchIcon
     },
     {
         name: "stock",

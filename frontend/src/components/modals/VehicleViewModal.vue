@@ -1,13 +1,11 @@
 <template>
-  <div class="">
     <button
       type="button"
       @click="openModal"
-      class=""
+      class="w-full"
     >
       <slot></slot>
     </button>
-  </div>
   <TransitionRoot appear :show="isOpen" as="template">
     <Dialog as="div" @close="closeModal" class="relative z-10">
       <TransitionChild
@@ -47,31 +45,31 @@
               <div class="text-gray-500">
                 <div class="mt-3">
                   <label for="name" class="text-gray-500 text-sm">Найменування</label>
-                  <input @change="handleButton" v-model="name" type="text" id="name" class="outline-none border border-1 border-gray-500 mt-2 text-heading text-sm rounded-md block w-full px-3 py-2.5 shadow-xs placeholder:text-body focus:border-orange-500" placeholder="Trinx" required />
+                  <input v-model="name" type="text" id="name" class="outline-none border border-1 border-gray-500 mt-2 text-heading text-sm rounded-md block w-full px-3 py-2.5 shadow-xs placeholder:text-body focus:border-orange-500" placeholder="Trinx" required />
                   </div>
                 <div class="mt-2">
                   <label for="model" class="text-gray-500 text-sm">Модель</label>
-                  <input @change="handleButton" v-model="model" type="text" id="model" class="border border-1 border-gray-500 mt-2 text-heading text-sm rounded-md block w-full px-3 py-2.5 shadow-xs placeholder:text-body focus:border-orange-500 outline-none" placeholder="MF900" required />
+                  <input v-model="model" type="text" id="model" class="border border-1 border-gray-500 mt-2 text-heading text-sm rounded-md block w-full px-3 py-2.5 shadow-xs placeholder:text-body focus:border-orange-500 outline-none" placeholder="MF900" required />
                 </div>
                 <div class="mt-2">
                   <label for="model" class="text-gray-500 text-sm">Серійний номер</label>
-                  <input @change="handleButton" v-model="serial" type="text" id="model" class="border border-1 border-gray-500 mt-2 text-heading text-sm rounded-md block w-full px-3 py-2.5 shadow-xs placeholder:text-body focus:border-orange-500 outline-none" placeholder="FX1UIJGDHS" required />
+                  <input v-model="serial" type="text" id="model" class="border border-1 border-gray-500 mt-2 text-heading text-sm rounded-md block w-full px-3 py-2.5 shadow-xs placeholder:text-body focus:border-orange-500 outline-none" placeholder="FX1UIJGDHS" required />
                 </div>
                 <div class="mt-2">
                   <label for="model" class="text-gray-500 text-sm">Діаметр колес</label>
-                  <input @change="handleButton" v-model="diameter" type="text" id="model" class="border border-1 border-gray-500 mt-2 text-heading text-sm rounded-md block w-full px-3 py-2.5 shadow-xs placeholder:text-body focus:border-orange-500 outline-none" placeholder="27.5" required />
+                  <input v-model="diameter" type="text" id="model" class="border border-1 border-gray-500 mt-2 text-heading text-sm rounded-md block w-full px-3 py-2.5 shadow-xs placeholder:text-body focus:border-orange-500 outline-none" placeholder="27.5" required />
                 </div>
                 <div class="mt-2">
                   <label for="model" class="text-gray-500 text-sm">Коментар</label>
-                  <input @change="handleButton" v-model="comment" type="text" id="model" class="border border-1 border-gray-500 mt-2 text-heading text-sm rounded-md block w-full px-3 py-2.5 shadow-xs placeholder:text-body focus:border-orange-500 outline-none" placeholder="..." required />
+                  <input v-model="comment" type="text" id="model" class="border border-1 border-gray-500 mt-2 text-heading text-sm rounded-md block w-full px-3 py-2.5 shadow-xs placeholder:text-body focus:border-orange-500 outline-none" placeholder="..." required />
                 </div> 
                 <div class="flex flex-col mt-3">
                   <label for="model" class="text-gray-500 text-sm">Sinotrack</label>
                   <div class="top-16">
-    <Listbox v-model="selectedPerson">
+    <Listbox v-model="sinotrack">
       <div class="relative mt-1">
         <ListboxButton
-          class="relative w-full cursor-default rounded-md border border-1 border-gray-500 bg-white py-3 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+          class="relative w-full cursor-default rounded-md border border-1 border-gray-500 bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
         >
           <span class="block truncate">{{ selectedPerson.name }}</span>
           <span
@@ -128,12 +126,11 @@
                 </div>
               </div>
 
-              <div class="mt-6">
+              <div class="mt-4">
                 <button
                   type="button"
-                  :class="[activeBtn ? 'w-full inline-flex justify-center rounded-md border border-orange-600 px-4 py-2 text-sm font-medium text-orange-600 hover:bg-orange-600/40 hover:cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2' : 'w-full inline-flex justify-center rounded-md border border-gray-400 px-4 py-2 text-sm font-medium text-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2']"
+                  class="w-full inline-flex justify-center rounded-md border border-orange-600 px-4 py-2 text-sm font-medium text-orange-600 hover:bg-orange-600/40 hover:cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                   @click="Test"
-                  :disabled="!activeBtn"
                 >
                   Зберегти
                 </button>
@@ -185,31 +182,21 @@ function openModal() {
   isOpen.value = true
 }
 
-const activeBtn = ref(false);
-
-function handleButton() {
-  if (name.value === "" || model.value === "" || serial.value === "" || diameter.value === "" || comment.value === "") {
-    activeBtn.value = false;
-    return;
-  }
-  activeBtn.value = true;
-}
-
 function Test() {
-  alert(name.value + " " + model.value + " " + serial.value + " " + diameter.value + " " + comment.value + " " + selectedPerson.value.name)
   closeModal()
-  activeBtn.value = false;
+  alert(name.value + " " + model.value + " " + serial.value + " " + diameter.value + " " + comment.value + " " + sinotrack.value.name)
   name.value = ""
   model.value = ""
   serial.value = ""
   diameter.value = ""
   comment.value = ""
-  selectedPerson.value = people[0]
+  sinotrack.value = {}
 }
 
 const name = ref("");
 const model = ref("")
 const serial = ref("")
-const diameter = ref(null)
+const diameter = ref(0)
 const comment = ref("")
+const sinotrack = ref(0)
 </script>
