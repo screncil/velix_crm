@@ -9,7 +9,7 @@
     </button>
   </div>
   <TransitionRoot appear :show="isOpen" as="template">
-    <Dialog as="div" @close="closeModal" class="relative z-10">
+    <Dialog as="div" @close="closeModal()" class="relative z-10">
       <TransitionChild
         as="template"
         enter="duration-300 ease-out"
@@ -42,6 +42,9 @@
                 as="h3"
                 class="text-lg font-medium leading-6 text-gray-900"
               >
+                <div v-if="error" class="p-4 mb-4 mt-4 text-sm text-red-500 rounded bg-red-400/15" role="alert">
+                  <span class="font-medium">Помилка!</span>   Зверніться до адміністратора для вирішення проблеми
+                </div>
                 Добавити транспортний засіб
               </DialogTitle>
               <div class="text-gray-500">
@@ -68,12 +71,12 @@
                 <div class="flex flex-col mt-3">
                   <label for="model" class="text-gray-500 text-sm">Sinotrack</label>
                   <div class="top-16">
-    <Listbox v-model="selectedPerson">
+    <Listbox v-model="selectedSinotrack">
       <div class="relative mt-1">
         <ListboxButton
-          class="relative w-full cursor-default rounded-md border border-1 border-gray-500 bg-white py-3 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+          class="relative w-full h-11 cursor-default rounded-md border border-1 border-gray-500 bg-white py-3 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
         >
-          <span class="block truncate">{{ selectedPerson.name }}</span>
+          <span class="block truncate">{{ selectedSinotrack._id }}</span>
           <span
             class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
           >
@@ -94,9 +97,9 @@
           >
             <ListboxOption
               v-slot="{ active, selected }"
-              v-for="person in people"
-              :key="person.name"
-              :value="person"
+              v-for="sinotrack in sinotracks"
+              :key="sinotrack.id"
+              :value="sinotrack"
               as="template"
             >
               <li
@@ -110,7 +113,7 @@
                     selected ? 'font-medium' : 'font-normal',
                     'block truncate',
                   ]"
-                  >{{ person.name }}</span
+                  >{{ sinotrack._id }} | {{ sinotrack.phone_number }}</span
                 >
                 <span
                   v-if="selected"
@@ -164,25 +167,29 @@ import {
   ListboxOption,
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
+import { getAvailableSinotracks } from '../../api/sinotrack'
+import { AddBike } from '../../api/bike'
 
-const people = [
-  { name: 'Wade Cooper' },
-  { name: 'Arlene Mccoy' },
-  { name: 'Devon Webb' },
-  { name: 'Tom Cook' },
-  { name: 'Tanya Fox' }
+
+var sinotracks = [
+
 ]
-const selectedPerson = ref(people[0])
 
-import ListboxLayout from '../layout/ListboxLayout.vue'
+const error = ref(false)
+const selectedSinotrack = ref('')
+
 
 const isOpen = ref(false)
 
 function closeModal() {
   isOpen.value = false
+  clearFields()
+  error.value = false;
 }
-function openModal() {
+async function openModal() {
   isOpen.value = true
+  const sinotrack = await getAvailableSinotracks();
+  sinotracks = sinotrack
 }
 
 const activeBtn = ref(false);
@@ -195,16 +202,26 @@ function handleButton() {
   activeBtn.value = true;
 }
 
-function Test() {
-  alert(name.value + " " + model.value + " " + serial.value + " " + diameter.value + " " + comment.value + " " + selectedPerson.value.name)
-  closeModal()
-  activeBtn.value = false;
+async function Test() {
+  console.log(selectedSinotrack.value._id)
+  var add = await AddBike(name.value, model.value, serial.value, diameter.value.replace(',', '.'), comment.value, selectedSinotrack.value.id, {_id: selectedSinotrack.value._id})
+  console.log(add)
+  if (add.added == true) {
+    closeModal()
+    activeBtn.value = false;
+    clearFields()
+  } else {
+    error.value = true;
+  }
+}
+
+function clearFields() {
   name.value = ""
   model.value = ""
   serial.value = ""
   diameter.value = ""
   comment.value = ""
-  selectedPerson.value = people[0]
+  selectedSinotrack.value = {}
 }
 
 const name = ref("");

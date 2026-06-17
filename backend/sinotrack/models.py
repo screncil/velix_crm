@@ -9,6 +9,7 @@ class Sinotrack(models.Model):
     phone_number = models.CharField(blank=False, null=False)
     payment_date = models.DateField(blank=False, null=False)
     end_date_rate = models.DateField(blank=True, null=True)
+    available = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
         if self.payment_date:

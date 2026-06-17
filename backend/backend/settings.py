@@ -31,10 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'item_categories',
     'corsheaders',
     'users',
     'sinotrack',
     'bike',
+    'client',
     'rest_framework_simplejwt',
     'rest_framework',
     'django.contrib.admin',

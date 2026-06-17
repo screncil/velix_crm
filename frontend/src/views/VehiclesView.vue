@@ -12,7 +12,7 @@
             </button>
         </div>
  
-        <div class="relative overflow-x-auto overflow-y-auto bg-neutral-primary-soft mt-4 shadow-xs rounded-md border border-orange-400 max-h-132">
+        <div v-if="bikes.length > 0" class="relative overflow-x-auto overflow-y-auto bg-neutral-primary-soft mt-4 shadow-xs rounded-md border border-orange-400 max-h-132">
             <table class="w-full text-sm text-left rtl:text-right text-body rounded-md">
                 <thead class="text-sm text-orange-500 bg-orange-600/40 border-b border-orange-400 rounded-base">
                     <tr>
@@ -40,43 +40,50 @@
                     </tr>
                 </thead>
                 <tbody>
-                        <tr v-for="vehicle in vehicles" class="bg-neutral-primary border-b border-gray-400 hover:bg-gray-500/10 hover:cursor-pointer">
+                        <tr v-for="bike in bikes" class="bg-neutral-primary border-b border-gray-400 hover:bg-gray-500/10 hover:cursor-pointer">
                                 <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
-                                    {{ vehicle.name }}
+                                    {{ bike.name }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{ vehicle.model }}
+                                    {{ bike.model }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ vehicle.serial_number }}
+                                    {{ bike.serial_number }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ vehicle.diameter }}
+                                    {{ bike.wheel_diameter }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ vehicle.comment }}
+                                    {{ bike.comments }}
                                 </td>
-                                <td v-if="!vehicle.in_rent" class="px-6 py-4">
+                                <td v-if="!bike.in_rent" class="px-6 py-4">
                                     <XMarkIcon class="text-red-500 w-5 h-5"/>
                                 </td>
                                 <td v-else class="px-6 py-4">
                                     <CheckIcon class="text-green-500 w-5 h-5"/>
                                 </td>
-                                <td class="px-6 py-4 border-0">
-                                    <span>{{ vehicle.sinotrack.serial_number }}</span>
+                                <td v-if="bike.sinotrack != null" class="px-6 py-4 border-0">
+                                    <span>{{ bike.sinotrack._id }}</span>
+                                </td>
+                                <td v-else class="px-6 py-4 border-0">
+                                    <XMarkIcon class="text-red-500 w-5 h-5"/>
                                 </td>
                         </tr>
                 </tbody>
             </table>
         </div>
+        <div v-else class="relative text-center mt-10 text-gray-500">
+            Наразі немає жодного транспорту
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import AddVehicle from '../components/modals/AddVehicleModal.vue';
 import VehicleViewModal from '../components/modals/VehicleViewModal.vue';
 import { PlusIcon, FunnelIcon, XMarkIcon,CheckIcon } from '@heroicons/vue/24/outline';
+import { bikes, getAllBikes } from '../api/bike';
 
 const showModal = ref(true);
 
@@ -90,21 +97,8 @@ function addVehicleCloseModel() {
 
 }
 
+onMounted(() => {
+    getAllBikes();
+})
 
-const vehicles = [
-
-    {
-        id: 1,
-        name: "Trinx",
-        model: "MF900",
-        serial_number: "FX1UIJGDHS",
-        diameter: "29",
-        comment: "-",
-        in_rent: false,
-        sinotrack: {
-            id: 1,
-            serial_number: "LGVDKSHPODHFG"
-        }
-    }
-]
 </script>

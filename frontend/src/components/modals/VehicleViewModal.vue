@@ -172,6 +172,7 @@ const people = [
 const selectedPerson = ref(people[0])
 
 import ListboxLayout from '../layout/ListboxLayout.vue'
+import { getAvailableSinotracks } from '../../api/sinotrack'
 
 const isOpen = ref(false)
 
@@ -180,6 +181,8 @@ function closeModal() {
 }
 function openModal() {
   isOpen.value = true
+  
+
 }
 
 function Test() {

@@ -44,18 +44,17 @@
               >
                 Добавити SinoTrack
               </DialogTitle>
+              <div v-if="error" class="p-4 mb-4 mt-4 text-sm text-red-500 rounded bg-red-400/15" role="alert">
+                <span class="font-medium">Помилка!</span>   Зверніться до адміністратора для вирішення проблеми
+              </div>
               <div class="text-gray-500">
                 <div class="mt-3">
                   <label for="name" class="text-gray-500 text-sm">Серійний номер</label>
-                  <input @change="handleButton" v-model="number" type="text" id="name" class="outline-none border border-1 border-gray-500 mt-2 text-heading text-sm rounded-md block w-full px-3 py-2.5 shadow-xs placeholder:text-body focus:border-orange-500" placeholder="Trinx" required />
+                  <input @change="handleButton" v-model="number" type="text" id="name" class="outline-none border border-1 border-gray-500 mt-2 text-heading text-sm rounded-md block w-full px-3 py-2.5 shadow-xs placeholder:text-body focus:border-orange-500" placeholder="LGVDKSHPODHFG" required />
                   </div>
                 <div class="mt-2">
                   <label for="model" class="text-gray-500 text-sm">Номер телефону</label>
                   <input @change="handleButton" v-model="number_phone" type="text" id="model" class="border border-1 border-gray-500 mt-2 text-heading text-sm rounded-md block w-full px-3 py-2.5 shadow-xs placeholder:text-body focus:border-orange-500 outline-none" placeholder="+380 (00) 123-45-67" required />
-                </div>
-                <div class="mt-2">
-                  <label for="model" class="text-gray-500 text-sm">Дата завершеня тарифу</label>
-                  <input @change="handleButton" v-model="end_date" type="date" id="model" class="border border-1 border-gray-500 mt-2 text-heading text-sm rounded-md block w-full px-3 py-2.5 shadow-xs placeholder:text-body focus:border-orange-500 outline-none" placeholder="FX1UIJGDHS" required />
                 </div>
                 <div class="mt-2">
                   <label for="model" class="text-gray-500 text-sm">Дата оплати</label>
@@ -99,7 +98,12 @@ import {
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 
+import { addSinotrack } from '../../api/sinotrack'
+import { sinotracks } from '../../api/sinotrack'
+
 const isOpen = ref(false)
+
+var error = false;
 
 function closeModal() {
   isOpen.value = false
@@ -111,25 +115,30 @@ function openModal() {
 const activeBtn = ref(false);
 
 function handleButton() {
-  if (number.value === "" || number_phone.value === "" || pay_date.value === "" || end_date.value === "") {
+  if (number.value === "" || number_phone.value === "" || pay_date.value === "") {
     activeBtn.value = false;
     return;
   }
   activeBtn.value = true;
 }
 
-function Test() {
-  alert(number.value + " " + number_phone.value + " " + pay_date.value + " " + end_date.value)
+async function Test() {
+  const resp = await addSinotrack(number.value, number_phone.value, pay_date.value)
+  if (resp.status != 201) {
+    error = true;
+    return;
+  }
+  
+  sinotracks.value.push(resp.data)
   closeModal()
+
   activeBtn.value = false;
   number.value = ""
   number_phone.value = ""
   pay_date.value = ""
-  end_date.value = ""
 }
 
 const number = ref("");
 const number_phone = ref("")
 const pay_date = ref("")
-const end_date = ref("")
 </script>

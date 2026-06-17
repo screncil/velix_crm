@@ -31,49 +31,68 @@
                         <th scope="col" class="px-6 py-3 font-medium">
                             Дата завершеня тарифу
                         </th>
+                        <th scope="col" class="px-6 py-3 font-medium">
+                            Використовується?
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                         <tr v-for="sinotrack in sinotracks" class="bg-neutral-primary border-b border-gray-400 hover:bg-gray-500/10 hover:cursor-pointer">
                             <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
-                                {{ sinotrack.number }}
+                                {{ sinotrack._id }}
                             </th>
                             <td class="px-6 py-4">
                                 {{ sinotrack.phone_number }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ sinotrack.pay_date }}
+                                {{ sinotrack.payment_date }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ sinotrack.end_date }}
+                                {{ sinotrack.end_date_rate }}
+                            </td>
+                            <td v-if="sinotrack.available" class="px-6 py-4">
+                                <p class="text-green-500 font-bold">Ні</p>
+                            </td>
+                            <td v-else class="px-6 py-4">
+                                <p class="text-red-500 font-bold">Так</p>
                             </td>
                         </tr>
                 </tbody>
             </table>
         </div>
+        <div v-else class="relative text-center mt-10 text-gray-500">
+            Наразі немає жодного Сінотреку
+        </div>
     </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue';
+<script lang="ts">
+
 import AddSinotrack from '../components/modals/AddSinotrackModal.vue';
 import VehicleViewModal from '../components/modals/VehicleViewModal.vue';
-import { PlusIcon, FunnelIcon, GlobeAltIcon, NoSymbolIcon } from '@heroicons/vue/24/outline';
+import { PlusIcon, FunnelIcon, GlobeAltIcon, NoSymbolIcon, XMarkIcon, CheckIcon } from '@heroicons/vue/24/outline';
 
-const showModal = ref(true);
+import { getAllSinotrack } from '../api/sinotrack';
+import { onBeforeMount, onMounted } from 'vue';
 
+import { sinotracks } from '../api/sinotrack';
 
-function addVehicleOpenModel() {
-    showModal.value = true
+export default {
+    components: {
+        PlusIcon, FunnelIcon, GlobeAltIcon, NoSymbolIcon,VehicleViewModal, AddSinotrack, XMarkIcon, CheckIcon, sinotracks
+    },
+    data() {
+        return {
+            sinotracks: sinotracks
+        }
+    },
+    methods: {
+        
+    },
+    async mounted() {
+        const sinotrack = await getAllSinotrack()
+        sinotracks.value = sinotrack
+    }
 }
 
-function addVehicleCloseModel() {
-    showModal.value = false
-
-}
-
-
-const sinotracks = [
-
-]
 </script>
