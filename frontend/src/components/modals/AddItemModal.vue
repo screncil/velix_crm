@@ -116,17 +116,17 @@
                 </div>
                 <div class="mt-2">
                   <label for="model" class="text-gray-500 text-sm">Опис товару</label>
-                  <textarea @change="handleButton" v-model="comment" type="date" id="model" class="'border border-1 border-gray-500 min-h-10 mt-2 text-heading text-sm rounded-md block w-full px-3 py-2.5 shadow-md focus:shadow-orange-500/30 placeholder:text-body focus:border-orange-500 outline-none" placeholder="Він довбойоб..." required />
+                  <textarea @change="handleButton" v-model="comment" type="date" id="model" class="'border border-1 border-gray-500 min-h-10 mt-2 text-heading text-sm rounded-md block w-full px-3 py-2.5 shadow-md focus:shadow-orange-500/30 placeholder:text-body focus:border-orange-500 outline-none" placeholder="Характеристики..." required />
                 </div>
                 <div class="mt-2">
                   <label for="fop-class" class="text-gray-500 text-sm mt">ФОП?</label>
                   <div id="fop-class" class="flex flex-row mt-1">
                     <div class="flex flex-row mr-3">
-                      <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-neutral-primary border-default-medium bg-neutral-secondary-medium rounded-full checked:border-brand focus:ring-2 focus:outline-none focus:ring-brand-subtle border border-default appearance-none focus:border-orange-500">
+                      <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-5 h-5 hover:cursor-pointer text-orange-500 focus:ring-1 border-default-medium bg-neutral-secondary-medium rounded-full checked:border-brand focus:bg-orange-100 focus:outline-none focus:ring-brand-subtle border border-default appearance-none focus:border-orange-500">
                       <label for="default-radio-1" class="select-none ms-2 text-sm font-medium text-heading">Так</label>
                     </div>
                     <div class="flex flex-row">
-                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-neutral-primary border-default-medium bg-neutral-secondary-medium rounded-full checked:border-brand focus:ring-2 focus:outline-none focus:ring-brand-subtle border border-default appearance-none">
+                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-5 h-5 text-orange-500 hover:cursor-pointer focus:ring-1 border-default-medium bg-neutral-secondary-medium rounded-full checked:border-brand focus:bg-orange-100 focus:outline-none focus:ring-brand-subtle border border-default appearance-none focus:border-orange-500">
                         <label for="default-radio-2" class="select-none ms-2 text-sm font-medium text-heading">Ні </label>
                     </div>
                   </div>
